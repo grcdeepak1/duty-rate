@@ -37,7 +37,7 @@ export class DashboardComponent implements OnInit {
   }
 
   search(params: SearchParams): void {
-    this.lastSearch = params;
+    this.lastSearch = Object.assign({}, params);
     this.dutyrateService.search(params)
       .then(
         dutyrates => this.dutyrates = dutyrates

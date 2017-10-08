@@ -35,7 +35,7 @@ var DashboardComponent = (function () {
     };
     DashboardComponent.prototype.search = function (params) {
         var _this = this;
-        this.lastSearch = params;
+        this.lastSearch = Object.assign({}, params);
         this.dutyrateService.search(params)
             .then(function (dutyrates) { return _this.dutyrates = dutyrates; });
     };
