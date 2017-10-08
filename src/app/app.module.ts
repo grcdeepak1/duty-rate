@@ -11,7 +11,7 @@ import { DutyrateService }      from './dutyrate.service';
 
 @NgModule({
   imports:      [
-    BrowserModule
+    BrowserModule,
     FormsModule,
     HttpModule,
   ],

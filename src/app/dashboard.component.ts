@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Country } from './country';
+import { Dutyrate } from './dutyrate';
 import { SearchParams } from './searchparams';
 import { CountryService } from './country.service';
 import { DutyrateService } from './dutyrate.service';
@@ -14,8 +15,16 @@ import { DutyrateService } from './dutyrate.service';
 export class DashboardComponent implements OnInit {
   countries: Country[] = [];
   dutyrates: Dutyrate[] = [];
-  searchParams: SearchParams = {};
-  lastSearch: SearchParams = {};
+  searchParams: SearchParams = {
+    to: '',
+    from: '',
+    term: ''
+  };
+  lastSearch: SearchParams = {
+    to: '',
+    from: '',
+    term: ''
+  };
 
   constructor(
     private countryService: CountryService,
@@ -36,6 +45,8 @@ export class DashboardComponent implements OnInit {
   }
 
   customValidCheck(params: SearchParams): boolean {
+    if (params == null)
+      return true;
     if (params.to == params.from)
       return false;
     else if (params.to != "United States" && params.from != "United States")

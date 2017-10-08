@@ -17,8 +17,16 @@ var DashboardComponent = (function () {
         this.dutyrateService = dutyrateService;
         this.countries = [];
         this.dutyrates = [];
-        this.searchParams = {};
-        this.lastSearch = {};
+        this.searchParams = {
+            to: '',
+            from: '',
+            term: ''
+        };
+        this.lastSearch = {
+            to: '',
+            from: '',
+            term: ''
+        };
     }
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -32,6 +40,8 @@ var DashboardComponent = (function () {
             .then(function (dutyrates) { return _this.dutyrates = dutyrates; });
     };
     DashboardComponent.prototype.customValidCheck = function (params) {
+        if (params == null)
+            return true;
         if (params.to == params.from)
             return false;
         else if (params.to != "United States" && params.from != "United States")
