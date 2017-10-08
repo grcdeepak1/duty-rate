@@ -1,0 +1,60 @@
+<form (ngSubmit)="search(searchParams)" #searchForm="ngForm">
+  <fieldset>
+    <div class="form-group">
+      <label for="toCountry">Import to Country:</label>
+      <select #toCountry required [(ngModel)]="searchParams.to" name="to">
+        <option selected disabled hidden style='display: none' value=''></option>
+        <option *ngFor="let country of countries" [ngValue]="country.name">
+            {{country.name}}
+        </option>
+      </select>
+    </div>
+
+  <br>
+    <div class="form-group">
+      <label for="fromCountry">Import from Country:</label>
+      <select #fromCountry required [(ngModel)]="searchParams.from" name="from">
+        <option selected disabled hidden style='display: none' value=''></option>
+        <option *ngFor="let country of countries" [ngValue]="country.name">
+            {{country.name}}
+        </option>
+      </select>
+    </div>
+
+    <br>
+    <label for="productDesc">Search</label>
+    <input type="search"
+           id="productDesc"
+           placeholder="product description"
+           #productDesc='ngModel'
+           [(ngModel)]="searchParams.term"
+           name="productDesc"
+           required>
+    <div [hidden]="productDesc.valid || productDesc.pristine" class='alert alert-danger'>
+      search text is required
+    </div>
+    <br>
+
+    <button [disabled]="!searchForm.form.valid || !customValidCheck(searchParams)">Search</button>
+    <div [hidden]="!searchForm.valid || customValidCheck(searchParams)" class='alert alert-danger'>
+      Either Export or Import Country must be United States
+    </div>
+  </fieldset>
+</form>
+
+<div *ngIf="dutyrates.length > 0">
+  <h3>Duty Rate Search Results for "{{ lastSearch.term }}" from "{{ lastSearch.from }}" to "{{ lastSearch.to }}"</h3>
+  <table>
+  <tr>
+    <th>HS Code</th>
+    <th>Product Description</th>
+    <th>Tariff Rate</th>
+  </tr>
+  <tr *ngFor="let dutyrate of dutyrates">
+    <td>{{dutyrate.hs_6}}</td>
+    <td>{{dutyrate.subheading_description}}</td>
+    <td>{{dutyrate.annual_rates["y2017"] == null ? 0.0000 : dutyrate.annual_rates["y2017"]}}</td>
+  </tr>
+  </table>
+</div>
+
