@@ -39,8 +39,10 @@ var DashboardComponent = (function () {
         this.searchDone = false;
         this.lastSearch = Object.assign({}, params);
         this.dutyrateService.search(params)
-            .then(function (dutyrates) { return _this.dutyrates = dutyrates; });
-        this.searchDone = true;
+            .then(function (dutyrates) {
+            _this.dutyrates = dutyrates;
+            _this.searchDone = true;
+        });
     };
     DashboardComponent.prototype.customValidCheck = function (params) {
         if (params == null)

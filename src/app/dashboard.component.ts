@@ -42,9 +42,10 @@ export class DashboardComponent implements OnInit {
     this.lastSearch = Object.assign({}, params);
     this.dutyrateService.search(params)
       .then(
-        dutyrates => this.dutyrates = dutyrates;
+        dutyrates => {
+        this.dutyrates = dutyrates;
         this.searchDone = true;
-        )
+        })
   }
 
   customValidCheck(params: SearchParams): boolean {
