@@ -27,6 +27,7 @@ var DashboardComponent = (function () {
             from: '',
             term: ''
         };
+        this.searchDone = false;
     }
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -35,9 +36,11 @@ var DashboardComponent = (function () {
     };
     DashboardComponent.prototype.search = function (params) {
         var _this = this;
+        this.searchDone = false;
         this.lastSearch = Object.assign({}, params);
         this.dutyrateService.search(params)
             .then(function (dutyrates) { return _this.dutyrates = dutyrates; });
+        this.searchDone = true;
     };
     DashboardComponent.prototype.customValidCheck = function (params) {
         if (params == null)

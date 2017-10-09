@@ -25,6 +25,7 @@ export class DashboardComponent implements OnInit {
     from: '',
     term: ''
   };
+  searchDone: boolean = false;
 
   constructor(
     private countryService: CountryService,
@@ -37,11 +38,13 @@ export class DashboardComponent implements OnInit {
   }
 
   search(params: SearchParams): void {
+    this.searchDone = false;
     this.lastSearch = Object.assign({}, params);
     this.dutyrateService.search(params)
       .then(
-        dutyrates => this.dutyrates = dutyrates
-        );
+        dutyrates => this.dutyrates = dutyrates;
+        this.searchDone = true;
+        )
   }
 
   customValidCheck(params: SearchParams): boolean {
